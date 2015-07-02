@@ -116,39 +116,32 @@ var education = {
 
 
 
-// ADD NAME AND ROLE TO TOP OF PAGE
-
-HTMLheaderName = HTMLheaderName.replace('%data%', bio.name);
-HTMLheaderRole = HTMLheaderRole.replace('%data%', bio.role);
+//FUNCTIONS FOR BUILDING VARIOUS PAGE SECTIONS
 
 
-$('#header').prepend(HTMLheaderRole);
-$('#header').prepend(HTMLheaderName);
+//BUILD TOP BIO SECTION
 
+bio.display = function () {
+  // ADD NAME AND ROLE TO TOP OF PAGE
+  HTMLheaderName = HTMLheaderName.replace('%data%', bio.name);
+  HTMLheaderRole = HTMLheaderRole.replace('%data%', bio.role);
+  $('#header').prepend(HTMLheaderRole);
+  $('#header').prepend(HTMLheaderName);
 
-// ADD CONTACT STRIP TO PAGE
-
-bio.contactStrip = function () {
- var item;
- for (item in this.contacts) {
+ // ADD CONTACT STRIP
+ for (var item in this.contacts) {
     var contact = HTMLcontactGeneric.replace('%contact%', item).replace('%data%', this.contacts[item]);
     $('#topContactStrip').append(contact);
     $('#footerContacts').append(contact);
   }
-};
-bio.contactStrip();
-
 
 // BUILD TOP SUMMARY SECTION
-
-bio.summaryText = function() {
     HTMLbioPic = HTMLbioPic.replace('%data%', this.pictureURl);
     HTMLWelcomeMsg = HTMLWelcomeMsg.replace('%data%', this.welcomeMessage);
     $('#topSummaryText').append(HTMLWelcomeMsg);
     if (this.skills.length > 0) {
       $('#topSummaryText').append(HTMLskillsStart);
-      var i;
-      for (i in this.skills) {
+      for (var i in this.skills) {
       var skill = HTMLskills.replace('%data%', this.skills[i]);
       $('#skills').append(skill);
       }
@@ -156,15 +149,13 @@ bio.summaryText = function() {
     $('#topSummary').prepend(HTMLbioPic);
 };
 
-bio.summaryText();
-
+bio.display();
 
 
 // BUILD WORK EXPERIENCE SECTION
 
-work.workExperienceBuilder = function () {
-  var job;
-  for (job in this.jobs) {
+work.display = function () {
+  for (var job in this.jobs) {
     $('#workExperience').append(HTMLworkStart);
     var employer = HTMLworkEmployer.replace('%data%', this.jobs[job].employer);
     var title = HTMLworkTitle.replace('%data%', this.jobs[job].title);
@@ -177,13 +168,12 @@ work.workExperienceBuilder = function () {
   }
 };
 
-work.workExperienceBuilder();
+work.display();
 
 // BUILD PROJECTS SECTION
 
-projects.projectSectionBuilder = function () {
-  var item;
-  for (item in this.projects) {
+projects.display = function () {
+  for (var item in this.projects) {
     $('#projects').append(HTMLprojectStart);
     var title = HTMLprojectTitle.replace('%data%', this.projects[item].title);
     var dates =  HTMLprojectDates.replace('%data%', this.projects[item].dates);
@@ -196,13 +186,13 @@ projects.projectSectionBuilder = function () {
   }
 };
 
-projects.projectSectionBuilder();
+projects.display();
 
 // BUILD EDUCATION SECTION
 
-education.educationSectionBuilder = function () {
-  var item;
-  for (item in this.schools) {
+education.display = function () {
+  //BUILD SCHOOL SECTION
+  for (var item in this.schools) {
   $('#education').append(HTMLschoolStart);
   var name = HTMLschoolName.replace('%data%', this.schools[item].name);
   var location = HTMLschoolLocation.replace('%data%', this.schools[item].location);
@@ -210,22 +200,15 @@ education.educationSectionBuilder = function () {
   var dates = HTMLschoolDates.replace('%data%',this.schools[item].dates);
   $('.education-entry:last').append(name + degree).append(location).append(dates);
 
-    var i;
-    for (i in this.schools[item].majors) {
+    for (var i in this.schools[item].majors) {
       var major = HTMLschoolMajor.replace('%data%', this.schools[item].majors[i]);
       $('.education-entry:last').append(major);
     }
   }
-};
-
-education.educationSectionBuilder();
-
-education.onlineClassSectionBuilder  = function () {
+  //BUILD ONLINE COURSE SECTION
   if (this.onlineCourses.length > 0) {
     $('#education').append(HTMLonlineClasses);
-
-    var i;
-    for (i in this.onlineCourses) {
+    for (var i in this.onlineCourses) {
       $('#education').append(HTMLschoolStart);
       var title = HTMLonlineTitle.replace('%data%', this.onlineCourses[i].name);
       var school = HTMLonlineSchool.replace('%data%', this.onlineCourses[i].site);
@@ -236,11 +219,9 @@ education.onlineClassSectionBuilder  = function () {
   }
 };
 
-education.onlineClassSectionBuilder();
-
+education.display();
 
 // BUILD MAP SECTION
-
 
 function locationFinder () {
   var addresses =  [];
