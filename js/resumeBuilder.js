@@ -250,8 +250,7 @@ function mapMaker() {
   };
   var map = new google.maps.Map(document.getElementById('mapDiv'), mapOptions);
   var len = addresses.length;
-  var x;
-  for (x = 0; x < len; x++) {
+  for (var x = 0; x < len; x++) {
       $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address='+addresses[x]+'&sensor=false', null, function (data) {
           var p = data.results[0].geometry.location;
           var latlng = new google.maps.LatLng(p.lat, p.lng);
