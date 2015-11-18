@@ -1,5 +1,6 @@
 # Online Resume Project 
 
+
 ## Purpose 
 
 Project for Udacity FrontEnd Nanodegree Course. Course allowed me to practice using Javascript, jQuery and JSON for manipulating the DOM. 
